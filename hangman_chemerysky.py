@@ -131,22 +131,23 @@ def hangman(secret_word):
     letter = str()
     letters_list = []
     letters_guessed = []
+    alpha_check = string.ascii_lowercase
     print("Welcome to the Hangman!")
     print(f"My word is {lenght} letters long")
     print(f"Your amount of warnings: {warnings_rem}")
     print("Let the game begin!")
     print("___________________")
-    while guesses_rem != 0:
+    while guesses_rem > 0:
       print(f"You have {guesses_rem} guesses left")
       print(f"Available letters: {get_available_letters(letters_guessed)}")
       letter_check = get_available_letters(letters_guessed)
       while True:
         letter = str(input("Guess a letter: "))
-        if letter.isalpha() == False or len(letter) != 1:
+        if letter.isalpha() == False or len(letter) != 1 or letter.lower() not in alpha_check:
           warnings_rem -= 1
           print(f"Invalid input, you'll pay for your mistake: you have {warnings_rem} warning(s) left")
           if warnings_rem == 0:
-            break
+            return print(f"You are out of warnings, you lose. Secret word is: {secret_word}")
           continue
         elif letter not in letter_check:
           print("You've already guessed this letter")
@@ -154,6 +155,7 @@ def hangman(secret_word):
         else:
           letters_guessed.append(letter)
           break
+
       if letter in str(secret_word):
         letters_list.append(letter)
         print(f"Well played, you're right! {get_guessed_word(secret_word, letters_list)}")
@@ -166,7 +168,7 @@ def hangman(secret_word):
       print("________________________")
       if is_word_guessed(secret_word, get_guessed_word(secret_word, letters_list)) == True:
         break
-      if warnings_rem == 0:
+      if guesses_rem <= 0:
         break
 
     
@@ -274,12 +276,13 @@ def hangman_with_hints(secret_word):
     letter = str()
     letters_list = []
     letters_guessed = []
+    alpha_check = string.ascii_lowercase
     print("Welcome to the Hangman with hints!")
     print(f"My word is {lenght} letters long")
     print(f"Your amount of warnings: {warnings_rem}")
     print("Let the game begin!")
     print("___________________")
-    while guesses_rem != 0:
+    while guesses_rem > 0:
       print(f"You have {guesses_rem} guesses left")
       print(f"Available letters: {get_available_letters(letters_guessed)}")
       letter_check = get_available_letters(letters_guessed)
@@ -288,17 +291,17 @@ def hangman_with_hints(secret_word):
         if letter == "*":
           show_possible_matches(get_guessed_word(secret_word, letters_list))
           continue
-        if letter.isalpha() == False or len(letter) != 1:
+        if letter.isalpha() == False or len(letter) != 1 or letter.lower() not in alpha_check:
           warnings_rem -= 1
           print(f"Invalid input, you'll pay for your mistake: you have {warnings_rem} warning(s) left")
           if warnings_rem == 0:
-            break
+            return print(f"You are out of warnings, you lose. Secret word is: {secret_word}")
           continue
-        elif letter not in letter_check:
+        elif letter.lower() not in letter_check:
           print("You've already guessed this letter")
           continue
         else:
-          letters_guessed.append(letter)
+          letters_guessed.append(letter.lower())
           break
       if letter in str(secret_word):
         letters_list.append(letter)
@@ -309,10 +312,12 @@ def hangman_with_hints(secret_word):
           guesses_rem -= 2
         elif letter in "bcdfghjklmnpqrstvwxyz":
           guesses_rem -= 1
+      #if guesses_rem <= 0:
+       #   break  
       print("________________________")
       if is_word_guessed(secret_word, get_guessed_word(secret_word, letters_list)) == True:
         break
-      if warnings_rem == 0:
+      if guesses_rem <= 0:
         break
 
     
@@ -344,5 +349,5 @@ if __name__ == "__main__":
     # uncomment the following two lines. 
     
     secret_word = choose_word(wordlist)
-    #secret_word = "vigil"
+    #secret_word = "vigil" - just for my own tests
     hangman_with_hints(secret_word)
