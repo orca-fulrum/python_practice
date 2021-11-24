@@ -168,8 +168,8 @@ def hangman(secret_word):
       print("________________________")
       if is_word_guessed(secret_word, get_guessed_word(secret_word, letters_list)) == True:
         break
-      if guesses_rem <= 0:
-        break
+      #if guesses_rem <= 0:
+      #  break
 
     
     if is_word_guessed(secret_word, get_guessed_word(secret_word, letters_list)) == True:
@@ -312,13 +312,11 @@ def hangman_with_hints(secret_word):
           guesses_rem -= 2
         elif letter in "bcdfghjklmnpqrstvwxyz":
           guesses_rem -= 1
-      #if guesses_rem <= 0:
-       #   break  
       print("________________________")
       if is_word_guessed(secret_word, get_guessed_word(secret_word, letters_list)) == True:
         break
-      if guesses_rem <= 0:
-        break
+      #if guesses_rem <= 0:
+      # break
 
     
     if is_word_guessed(secret_word, get_guessed_word(secret_word, letters_list)) == True:
