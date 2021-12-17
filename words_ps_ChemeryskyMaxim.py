@@ -6,8 +6,8 @@
 # Name          : Maxim Chemerysky
 # Collaborators : ----------------
 # Time spent    : a week
-# Problem with wildcards was nor written
-# So the only thing that is not ready - wildcards
+# Problem 4 (wildcards) was nor written
+# So the only thing that is not ready - problem 4 (wildcards)
 
 import math
 import random
